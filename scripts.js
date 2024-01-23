@@ -110,7 +110,7 @@ function getUsers(data){
 // the window.onload handler is where we can attach event handlers 
 // that won't be added to the page until the content has loaded
 window.onload = function(){
-    //getPhotos();
+    getPhotos();
 
     // get the data stored in our local JSON file so we can use it 
     // to display portions of the data returned
