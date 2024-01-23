@@ -6,9 +6,19 @@ function getPhotos(){
 
     // below is an example of the returned data
     // [
-    // {"id":"62","url":"https://cdn2.thecatapi.com/images/62.jpg","width":568,"height":580},
-    // {"id":"133","url":"https://cdn2.thecatapi.com/images/133.jpg","width":500,"height":625},
-    // {"id":"189","url":"https://cdn2.thecatapi.com/images/189.gif","width":500,"height":281},
+    // {
+        // "id":"62",
+        //"url":"https://cdn2.thecatapi.com/images/62.jpg",
+        //"width":568,"height":580},
+    // {
+        //"id":"133",
+        //"url":"https://cdn2.thecatapi.com/images/133.jpg",
+        //"width":500,"height":625},
+    // {
+        //"id":"189",
+        //"url":"https://cdn2.thecatapi.com/images/189.gif",
+        //"width":500,
+        //"height":281},
     // {"id":"29t","url":"https://cdn2.thecatapi.com/images/29t.jpg","width":420,"height":282},
     // {"id":"583","url":"https://cdn2.thecatapi.com/images/583.jpg","width":459,"height":612},
     // {"id":"7js","url":"https://cdn2.thecatapi.com/images/7js.png","width":376,"height":505},
@@ -60,7 +70,7 @@ function displayPhotos(json){
     for(let photo of json){
         // TO DO
         output += `
-            <img src="${"add image url here"}" alt="" width="${"add image width here"}" height="${"add image height here"}">
+            <img src="${photo.url}" alt="" width="${photo.width}" height="${photo.height}">
         `;
 
     }
@@ -72,13 +82,35 @@ function displayPhotos(json){
 function getUsers(data){
     console.log('This is our user data from the file: ', data);
     // TO DO - ADD USER INFO TO PAGE
+
+    //container for output
+    const outputDiv = document.getElementById("users");
+
+    //empty string to build output
+    let output = "";
+
+    for(let user of data.results){
+        let birthday = new Date(user.dob.date);
+        console.log('Users Birthday: ', birthday);
+
+        output += `
+            <section>
+                <h3>${user.name.first} ${user.name.last}</h3>
+                <p>Username: ${user.login.username}</p>
+                <img src = "${user.picture.large}" alt = "" width = "160" height = "160">
+                <p>Birthday: ${birthday.getMonth() + 1} - ${birthday.getDate()} - ${birthday.getFullYear()}</p>
+                <a href = "mailto: ${user.email}">${user.email}</a>
+            </section>
+        `;
+    }
+    outputDiv.innerHTML = output;
 }
 
 // call the function to display the cat photos on page load
 // the window.onload handler is where we can attach event handlers 
 // that won't be added to the page until the content has loaded
 window.onload = function(){
-    getPhotos();
+    //getPhotos();
 
     // get the data stored in our local JSON file so we can use it 
     // to display portions of the data returned
